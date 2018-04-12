@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.11.2">
+  <bpmn:process id="js-form-validation-test-1" name="JS Form Validation Test 1" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_19k6bd1">
+            <camunda:validation>
+              <camunda:constraint />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_0fqr6bi</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0fqr6bi" sourceRef="StartEvent_1" targetRef="Task_0xo2iv5" />
+    <bpmn:userTask id="Task_0xo2iv5" name="Form Validation Test">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="server-validations" type="string">
+            <camunda:validation>
+              <camunda:constraint name="validator" config="io.digitalstate.camunda.JsFormValidation" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0fqr6bi</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0k893qg</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0k893qg" sourceRef="Task_0xo2iv5" targetRef="Task_1ooqyxn" />
+    <bpmn:userTask id="Task_1ooqyxn" name="placeholder">
+      <bpmn:incoming>SequenceFlow_0k893qg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ynkio2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_08p5cr6">
+      <bpmn:incoming>SequenceFlow_1ynkio2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1ynkio2" sourceRef="Task_1ooqyxn" targetRef="EndEvent_08p5cr6" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="js-form-validation-test-1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="243" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="216" y="268" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0fqr6bi_di" bpmnElement="SequenceFlow_0fqr6bi">
+        <di:waypoint xsi:type="dc:Point" x="279" y="250" />
+        <di:waypoint xsi:type="dc:Point" x="337" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="308" y="228.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0oqo5n6_di" bpmnElement="Task_0xo2iv5">
+        <dc:Bounds x="337" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0k893qg_di" bpmnElement="SequenceFlow_0k893qg">
+        <di:waypoint xsi:type="dc:Point" x="437" y="250" />
+        <di:waypoint xsi:type="dc:Point" x="491" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="464" y="228.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1niwtfc_di" bpmnElement="Task_1ooqyxn">
+        <dc:Bounds x="491" y="210" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_08p5cr6_di" bpmnElement="EndEvent_08p5cr6">
+        <dc:Bounds x="638" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="656" y="271" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ynkio2_di" bpmnElement="SequenceFlow_1ynkio2">
+        <di:waypoint xsi:type="dc:Point" x="591" y="250" />
+        <di:waypoint xsi:type="dc:Point" x="638" y="250" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="614.5" y="228" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

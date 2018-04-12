@@ -1,0 +1,14 @@
+version: '3.2'
+
+services:
+  camunda:
+    build: .
+    environment:
+      - JAVA_OPTS=-Djava.security.egd=file:/dev/./urandom -Duser.timezone=America/Montreal
+    ports:
+      - "8080:8080"
+    networks:
+      - mynetwork
+networks:
+  mynetwork:
+    driver: bridge
