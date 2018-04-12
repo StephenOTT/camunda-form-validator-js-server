@@ -21,26 +21,29 @@ The solution also provides the ability to enable better Server to Service / Syst
     
     1. Set the `id` to something meaningfull such as "server-validations".  This id will be shown on the UI of Camunda Tasklist when a validation error is thrown:
     
-    > An error happend while submitting the task form :
-    > Cannot submit task form 148d9fdc-3e7d-11e8-98f9-0242ac120002: Invalid value submitted for form field 'server-validations': validation of validator(io.digitalstate.camunda.JsFormValidation) failed.
+        > An error happend while submitting the task form :
+        > Cannot submit task form 148d9fdc-3e7d-11e8-98f9-0242ac120002: Invalid value submitted for form field 'server-validations': validation of validator(io.digitalstate.camunda.JsFormValidation) failed.
 
-    You will be able to see the specific errors in the console:
-    > Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldValidationException: firstName is required
+        You will be able to see the specific errors in the console:
+        > Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldValidationException: firstName is required
 
-    or
+        or
 
-    >  Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldValidationException: age must be 18 or older
+        >  Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldValidationException: age must be 18 or older
 
-    While error messages are supported at the Java API level, the messages are not currently propogated to the Camunda REST API as per JIRA issue: [CAM-8276](https://app.camunda.com/jira/browse/CAM-8276).
-    Further history on this issue can be found at [Github Issue/PR: 195]()https://github.com/camunda/camunda-bpm-platform/pull/195/ and Jira [CAM-2757](https://app.camunda.com/jira/browse/CAM-2757)
+        While error messages are supported at the Java API level, the messages are not currently propogated to the Camunda REST API as per JIRA issue: [CAM-8276](https://app.camunda.com/jira/browse/CAM-8276).
+        
+        Further history on this issue can be found at [Github Issue/PR: 195](https://github.com/camunda/camunda-bpm-platform/pull/195/) and Jira [CAM-2757](https://app.camunda.com/jira/browse/CAM-2757)
     
     1. Set the "type" value to String.  It can be any type as we are only using this field are a marker to inject our validator.
 
     1. Label and default value can be left null/blank as they are unused.
 
     1. In the Validation section add a "Constraint" with the `+` button with the following configuration:
-    Name: `validator`
-    Config: `io.digitalstate.camunda.JsFormValidation`
+    
+        **Name**: `validator`
+        
+        **Config**: `io.digitalstate.camunda.JsFormValidation`
 
     1. You can also set a Form Key value for using a Embedded Form.  Note that when you configure your Embedded Form / Angular Form code/html, you will still need to preform the above configurations to enable the custom server validation.
 
