@@ -1,6 +1,6 @@
-//helper for printing to console
-var system = java.lang.System
 load('classpath:validationResult.js')
+load('classpath:validate.min.js')
+
 /*
 Available variables:
 execution -> returns: org.camunda.bpm.engine.impl.persistence.entity.ExecutionEntity
@@ -20,12 +20,40 @@ References:
 
 */
 
+// Used for converting Java objects (such as Maps) into JSON Strings
+var JSONObject = Java.type('org.camunda.bpm.engine.impl.util.json.JSONObject')
+// var JSONArray = Java.type('org.camunda.bpm.engine.impl.util.json.JSONArray')
+
+var jsonSubmission = JSON.parse(new JSONObject(submissionValues).toString())
 
 
-system.out.println("Submission Values:")
-system.out.println(submissionValues.toString())
+// Validate.js Constraints
+function getConstraints() {
+  var constraints = {
+    age: {
+      presence: true,
+      numericality: {
+        onlyInteger: true,
+        greaterThan: 18,
+        lessThanOrEqualTo: 125,
+      }
+    }
+  };
+  return constraints
+}
 
-validateData(submissionValues)
+var validation = validate(jsonSubmission, getConstraints())
+
+if (validation === undefined) {
+  validationResult(true)
+} else {
+  validationResult(false, {
+                            "detail": "VALIDATE.JS", 
+                            "message": JSON.stringify(validation)
+                          }
+                    )
+}
+
 // validationResult(true)
 // validationResult(false, {
 //                           "detail": "FIELD_REQUIRED", 
@@ -36,51 +64,23 @@ validateData(submissionValues)
 
 // -------------------------------------------------------------------------------
 // Field Validation Examples
+// Custom/Raw validation
+// function validateData(values){
+// // @TODO Add Validate.js usage example
+//   if (values.containsKey('firstName') == false){
+//     return validationResult(false, {
+//                                      "detail": "FIELD_REQUIRED", 
+//                                      "message": "firstName is required"
+//                                     })
+//   }
 
-function validateData(values){
-// @TODO Add Validate.js usage example
-  if (values.containsKey('firstName') == false){
-    return validationResult(false, {
-                                     "detail": "FIELD_REQUIRED", 
-                                     "message": "firstName is required"
-                                    })
-  }
-
-  if (values.containsKey('age') && values['age'] < 18 ){
-    return validationResult(false, {
-                                     "detail": "AGE_LIMIT", 
-                                     "message": "age must be 18 or older"
-                                    })
-  }
+//   if (values.containsKey('age') && values['age'] < 18 ){
+//     return validationResult(false, {
+//                                      "detail": "AGE_LIMIT", 
+//                                      "message": "age must be 18 or older"
+//                                     })
+//   }
   
-  // If no errors were found:
-  return validationResult(true)
-}
-
-
-// -------------------------------------------------------------------------------
-// @TODO move this section into a standalone js file that will be 
-// loaded through: load('classpath:validationResult.js')
-
-/*
-  Generic Function to build final response for validation
-*/
-// function validationResult(result, validationError) {
-//   if (result != true){
-//     result = false
-//   }
-//   // @TODO ensure validationError is a object with detail and message keys
-//   if (result == true){
-//     return Java.asJSONCompatible({
-//       "result": true
-//     })
-//   } else {
-//     return Java.asJSONCompatible({
-//       "result": false,
-//       "validation_error": {
-//         "detail": validationError.detail,
-//         "message": validationError.message
-//       }
-//     })
-//   }
+//   // If no errors were found:
+//   return validationResult(true)
 // }

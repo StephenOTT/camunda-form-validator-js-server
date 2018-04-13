@@ -11,6 +11,10 @@ import org.camunda.bpm.engine.impl.form.validator.FormFieldValidator;
 import org.camunda.bpm.engine.impl.form.validator.FormFieldValidatorContext;
 
 import org.camunda.bpm.engine.impl.scripting.engine.ScriptEngineResolver;
+
+// import org.camunda.bpm.model.xml.ModelInstance;
+// import org.camunda.bpm.model.xml.instance.ModelElementInstance;
+
 import javax.script.Bindings;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -20,13 +24,19 @@ public class JsFormValidation implements FormFieldValidator {
 
   public boolean validate(Object submittedValue, FormFieldValidatorContext validatorContext){
     
-    // @TODO add dynamic file selection based on configuration
-    String fileName = "form-validation.js";
-
     // @TODO add getVariableScope() usage as getExecution is deprecated
     // Must discussion with Camunda devs on building proper interface 
     // for getting the current execution
     DelegateExecution execution = validatorContext.getExecution();
+
+      // ModelInstance modelInstance = execution.getBpmnModelInstance();
+      // ModelElementInstance elementInstance = modelInstance.getModelElementById(execution.getCurrentActivityId());
+      // var extensionElements = elementInstance.getExtensionElements().getElementsQuery().filterByType(Java.type('org.camunda.bpm.model.bpmn.instance.camunda.CamundaProperties').class).singleResult().getCamundaProperties().toArray()
+
+
+
+    // @TODO add dynamic file selection based on configuration
+    String fileName = "form-validation.js";
 
     String processDefinitionId = execution.getProcessDefinitionId();
     String deploymentId = execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(processDefinitionId).getDeploymentId();

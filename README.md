@@ -55,6 +55,59 @@ The `form-validation.js` file must be included in every deployment as the valida
 > **NOTE**: See the `docker` folder for a ready to use example with docker-compose.  Run: `docker-compose up` from within the docker folder, and then deploy the files in the `bpmn` folder, and go to `localhost:8080/camunda` and access the Tasklist (username: `demo` password: `demo`)
 
 
+## Camunda API Usage
+
+POST: `localhost:8080/engine-rest/process-definition/key/js-form-validation-test-1/submit-form`
+
+with a JSON payload of:
+
+```json
+{
+	"variables":
+	    {
+	    	"age": {"value": 19, "type": "Integer"} 
+	    } 
+}
+```
+
+Currently a failed validation will return a Server code error 500 with the following style of response:
+
+```json
+{
+    "type": "RestException",
+    "message": "Cannot instantiate process definition 984a61c6-3f38-11e8-9aa3-0242ac130002: Invalid value submitted for form field 'server_validation': validation of validator(io.digitalstate.camunda.JsFormValidation) failed."
+}
+```
+
+This response is due to a lack of REST API support for form validation errors as per: [CAM-8276](https://app.camunda.com/jira/browse/CAM-8276)
+
+The console will print:
+
+```console
+
+...
+
+camunda_1  | Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldValidationException: {"age":["Age must be greater than 18"]}
+camunda_1  | 	at io.digitalstate.camunda.JsFormValidation.validate(JsFormValidation.java:71)
+camunda_1  | 	at org.camunda.bpm.engine.impl.form.validator.FormFieldValidatorInvocation.invoke(FormFieldValidatorInvocation.java:35)
+camunda_1  | 	at org.camunda.bpm.engine.impl.delegate.DelegateInvocation.proceed(DelegateInvocation.java:54)
+camunda_1  | 	at org.camunda.bpm.engine.impl.delegate.DefaultDelegateInterceptor.handleInvocationInContext(DefaultDelegateInterceptor.java:87)
+camunda_1  | 	at org.camunda.bpm.engine.impl.delegate.DefaultDelegateInterceptor.handleInvocation(DefaultDelegateInterceptor.java:59)
+camunda_1  | 	at org.camunda.bpm.engine.impl.form.validator.DelegateFormFieldValidator.doValidate(DelegateFormFieldValidator.java:107)
+camunda_1  | 	at org.camunda.bpm.engine.impl.form.validator.DelegateFormFieldValidator.validate(DelegateFormFieldValidator.java:65)
+camunda_1  | 	at org.camunda.bpm.engine.impl.form.handler.FormFieldValidationConstraintHandler.validate(FormFieldValidationConstraintHandler.java:47)
+camunda_1  | 	... 102 more
+
+... 
+
+```
+
+Where the first line is the failed validation(s)
+
+```console
+camunda_1  | Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldValidationException: {"age":["Age must be greater than 18"]}
+```
+
 ## Screenshots
 
 ### BPMN
