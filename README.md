@@ -108,6 +108,49 @@ Where the first line is the failed validation(s)
 camunda_1  | Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldValidationException: {"age":["Age must be greater than 18"]}
 ```
 
+## Validate.js usage
+
+in the form-validation.js there is usage examples of validate.js.  Validate.js is used because Nashorn Javascript engine can load the libary without issues.
+
+A simple example is:
+
+```js
+// Validate.js Constraints
+function getConstraints() {
+  var constraints = {
+    age: {
+      presence: true,
+      numericality: {
+        onlyInteger: true,
+        greaterThan: 18,
+        lessThanOrEqualTo: 125,
+      }
+    }
+  };
+  return constraints
+}
+
+var validation = validate(jsonSubmission, getConstraints())
+
+if (validation === undefined) {
+  validationResult(true)
+} else {
+  validationResult(false, {
+                            "detail": "VALIDATE.JS", 
+                            "message": JSON.stringify(validation)
+                          }
+                    )
+}
+```
+
+A valid validation will return `undefined` and anything that is not a valid issue will return a object of keys that represent each field name.
+
+see https://validatejs.org for further examples.
+
+### load() for validation functions
+
+The Nashorn `load()` function can also take a http url.  So you can store validations on a web server and load specific validations constraints as required based on your logic.  Be aware that this will create increase response time of your submission.
+
 ## Screenshots
 
 ### BPMN
