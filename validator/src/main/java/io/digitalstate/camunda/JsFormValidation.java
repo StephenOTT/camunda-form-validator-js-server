@@ -33,8 +33,6 @@ public class JsFormValidation implements FormFieldValidator {
       // ModelElementInstance elementInstance = modelInstance.getModelElementById(execution.getCurrentActivityId());
       // var extensionElements = elementInstance.getExtensionElements().getElementsQuery().filterByType(Java.type('org.camunda.bpm.model.bpmn.instance.camunda.CamundaProperties').class).singleResult().getCamundaProperties().toArray()
 
-
-
     // @TODO add dynamic file selection based on configuration
     String fileName = "form-validation.js";
 
@@ -53,7 +51,7 @@ public class JsFormValidation implements FormFieldValidator {
     bindings.put("execution", execution);
 
     // Holder of result
-    // Defaults to False if not value is provided
+    // Defaults to False if no value was initialized
     Boolean validationReturn;
 
     try {

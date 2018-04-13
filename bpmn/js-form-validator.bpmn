@@ -25,6 +25,10 @@
       <bpmn:incoming>SequenceFlow_1let8b1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_086jevs</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:textAnnotation id="TextAnnotation_14s2zon">
+      <bpmn:text>Has validator attached</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_08kht6t" sourceRef="StartEvent_0r9t9rz" targetRef="TextAnnotation_14s2zon" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="js-form-validation-test-1">
@@ -57,6 +61,13 @@
       <bpmndi:BPMNShape id="UserTask_1uxzfm4_di" bpmnElement="Task_12dw411">
         <dc:Bounds x="263" y="218" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_14s2zon_di" bpmnElement="TextAnnotation_14s2zon">
+        <dc:Bounds x="158" y="319" width="100" height="42" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_08kht6t_di" bpmnElement="Association_08kht6t">
+        <di:waypoint xsi:type="dc:Point" x="208" y="276" />
+        <di:waypoint xsi:type="dc:Point" x="208" y="319" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

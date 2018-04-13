@@ -290,7 +290,7 @@ See the form-validation.js example file for further usage examples.
 1. Cleanup Messages in console for proper Camunda Logging usage
 1. Add Bean support for calling the validator through a Expression/Short name, rather than the fully qualified class name.
 1. Add SPIN support and usage examples
-1. Add validate.js example
+1. <s>Add validate.js example</s>
 1. Better error and debug support
 1. Add error messages in the REST API and Task list for Camunda
 1. Add Unit Testing
