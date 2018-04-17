@@ -47,9 +47,13 @@ The solution also provides the ability to enable better Server to Service / Syst
 
     1. You can also set a Form Key value for using a Embedded Form.  Note that when you configure your Embedded Form / Angular Form code/html, you will still need to preform the above configurations to enable the custom server validation.
 
-1. Deploy your BPMN file, and as part of the deployment include a file called `form-validation.js`.  This javascript file will be what is executed during validation.  See `./bpmn/form-validation.js` for a working example and usage.
+    1. **Optional**: Create a property for the field called: `validator_file` and set the value to the name of the javascript file in your deployment that contains the script for validation.  This allows you to create multiple validator files that are used at different points in your process, as well as add multiple validators to a single field.  Adding multiple validators to a single field is valuable for when you have task specific or Start Form Specific validations as well as common/shared validations that occur across multiple BPMN elements.  If you do not provide a `validator_file` property then the validator will look for a javascript file in the deployment with field ID value and the extension `.js` (example: given a field name/ID of `server_validations` the default file would be `server_validations.js`).
+    
+        ![validator property](./docs/validator-property.png)
 
-The `form-validation.js` file must be included in every deployment as the validator will use the current execution context to get the file from the deployment resources.
+1. Deploy your BPMN file, and as part of the deployment include the javascript files that are called as part of the validator usage.  These javascript files will be what is executed during validation.  See `./bpmn/form-validation.js` for a working example and usage.
+
+The validator javascript files must be included in every deployment as the validator will use the current execution context and the configuration and properties of the field to find and get the correct javascript file from the deployment resources.
 
 
 > **NOTE**: See the `docker` folder for a ready to use example with docker-compose.  Run: `docker-compose up` from within the docker folder, and then deploy the files in the `bpmn` folder, and go to `localhost:8080/camunda` and access the Tasklist (username: `demo` password: `demo`)
@@ -110,7 +114,7 @@ camunda_1  | Caused by: org.camunda.bpm.engine.impl.form.validator.FormFieldVali
 
 ## Validate.js usage
 
-in the form-validation.js there is usage examples of validate.js.  Validate.js is used because Nashorn Javascript engine can load the libary without issues.
+in the form-validation.js example file, there is usage examples of validate.js.  Validate.js is used because Nashorn Javascript engine can load the libary without issues.
 
 A simple example is:
 
@@ -163,11 +167,19 @@ The Nashorn `load()` function can also take a http url.  So you can store valida
 
 ![bpmn](./docs/Camunda-Modeler-without-formkey.png)
 
+![bpmn validator file configuration property](./docs/validator-property.png)
+
 
 ### Task List with Error message:
 
 ![tasklist with error](./docs/Tasklist-validation-error-message.png)
 
+
+# Layering Validator usage on a Start Event or User Task:
+
+You can add multiple validators to a single Start Event or User Task: this allows you to create shared and unique validators that are called as defined by your configuration. Validators are called in order that they are defined in the XML/Camunda Modeler properties panel.
+
+![bpmn layering](./docs/validator-property.png)
 
 # Example Validation Errors
 
@@ -290,12 +302,12 @@ See the form-validation.js example file for further usage examples.
 1. Cleanup Messages in console for proper Camunda Logging usage
 1. Add Bean support for calling the validator through a Expression/Short name, rather than the fully qualified class name.
 1. Add SPIN support and usage examples
-1. <s>Add validate.js example</s>
+1. :white_check_mark: <s>Add validate.js example</s>
 1. Better error and debug support
 1. Add error messages in the REST API and Task list for Camunda
 1. Add Unit Testing
 1. Add to Maven and easy importing into camunda Maven builds
 1. Add usage example of Form Validation occuring from a Vertx Event Bus (Polyglot)
 1. Update Camunda Docs with notes and usage of the Form Validation Error Messages that can be thrown: https://docs.camunda.org/manual/7.8/user-guide/task-forms/#form-field-validation.  Docs currently are missing this information.
-1. Add support for multiple validation js files in a deployment and each Start Event / User Task can call a specific validation js file (likely through expression arguments or Form Properties)
+1. :white_check_mark: <s>Add support for multiple validation js files in a deployment and each Start Event / User Task can call a specific validation js file (likely through expression arguments or Form Properties)</s>
 1. Add example of Web Service Validation call, where data is validated against a web service, and the web service call is done from Camunda Server side to the third-party.

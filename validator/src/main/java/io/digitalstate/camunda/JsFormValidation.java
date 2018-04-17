@@ -29,12 +29,10 @@ public class JsFormValidation implements FormFieldValidator {
     // for getting the current execution
     DelegateExecution execution = validatorContext.getExecution();
 
-      // ModelInstance modelInstance = execution.getBpmnModelInstance();
-      // ModelElementInstance elementInstance = modelInstance.getModelElementById(execution.getCurrentActivityId());
-      // var extensionElements = elementInstance.getExtensionElements().getElementsQuery().filterByType(Java.type('org.camunda.bpm.model.bpmn.instance.camunda.CamundaProperties').class).singleResult().getCamundaProperties().toArray()
-
-    // @TODO add dynamic file selection based on configuration
-    String fileName = "form-validation.js";
+    // Gets the value of the "validator_file" property or defaults to "[fieldId].js"
+    String submissionFieldName = validatorContext.getFormFieldHandler().getId();
+    final String fileNameDefault = submissionFieldName + ".js";
+    String fileName = validatorContext.getFormFieldHandler().getProperties().getOrDefault("validator_file", fileNameDefault);
 
     String processDefinitionId = execution.getProcessDefinitionId();
     String deploymentId = execution.getProcessEngineServices().getRepositoryService().getProcessDefinition(processDefinitionId).getDeploymentId();
