@@ -34,6 +34,8 @@ The solution also provides the ability to enable better Server to Service / Syst
         While error messages are supported at the Java API level, the messages are not currently propogated to the Camunda REST API as per JIRA issue: [CAM-8276](https://app.camunda.com/jira/browse/CAM-8276).
         
         Further history on this issue can be found at [Github Issue/PR: 195](https://github.com/camunda/camunda-bpm-platform/pull/195/) and Jira [CAM-2757](https://app.camunda.com/jira/browse/CAM-2757)
+
+        **Active work to complete this has been started at: **  https://github.com/camunda/camunda-bpm-platform/pull/296
     
     1. Set the "type" value to String.  It can be any type as we are only using this field are a marker to inject our validator.
 
